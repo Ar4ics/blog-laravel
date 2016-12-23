@@ -1,0 +1,21 @@
+{
+  "name": "cms",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Artur Gizmo <antivirus4comp@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "foundation-sites": "^6.3.0"
+  }
+}

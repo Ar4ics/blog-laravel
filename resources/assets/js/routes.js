@@ -15,6 +15,8 @@ export const routes = (
             <Route path="/posts/:slug" component={Post}/>
             <Route path="/tags" component={Tags}/>
             <Route path="/tags/:tag" component={Home}/>
+            <Route path="/register" component={Home}/>
+            <Route path="/login" component={Home}/>
         </Route>
         <Route path='*' component={NotFound} />
     </div>

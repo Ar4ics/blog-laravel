@@ -13,7 +13,7 @@ class AddRatingToArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             $table->double('rating')->nullable();
         });
     }

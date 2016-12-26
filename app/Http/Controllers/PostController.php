@@ -10,12 +10,14 @@ use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
     }
 
 
@@ -28,7 +30,8 @@ class PostController extends Controller
     public function create()
     {
         $tags = Tag::orderBy('name')->pluck('name', 'id');
-        return view('posts.create', compact('tags'));
+        //return view('posts.create', compact('tags'));
+        return $tags;
     }
 
     public function edit(Article $post)
@@ -46,8 +49,11 @@ class PostController extends Controller
         //return view('posts.index', compact('posts'));
     }
 
-    public function storeComment(CommentRequest $request, $slug)
+    public function storeComment(Request $request, $slug)
     {
+        $this->validate($request, [
+            'comment' => 'required|min:3|max:50',
+        ]);
         $post = Article::where('slug', $slug)->firstOrFail();
         $comment = new Comment;
         $comment->article_id = $post->id;
@@ -55,18 +61,23 @@ class PostController extends Controller
         $comment->comment = $request->input('comment');
         $comment->save();
 
-        return redirect()->action('PostController@show', compact('slug'));
+        return response()->json(['comment' => $comment->with('user')->orderBy('created_at', 'desc')->first()]);
+
+        //return redirect()->action('PostController@show', compact('slug'));
 
 
     }
 
-    public function store(PostRequest $request) {
+    public function store(Request $request) {
 
+        $this->validate($request, [
+            'title' => 'required|min:5|max:30',
+            'content' => 'required',
+            'tags' => 'required|max:3'
+        ]);
         $post = Auth::user()->articles()->create($request->all());
         $post->tags()->attach($request->input('tags'));
-
-        Session::flash('status', 'Пост создан!');
-        return redirect()->action('PostController@index');
+        return response()->json(['slug' => $post->slug]);
 
     }
 

@@ -4,7 +4,7 @@ import {
 } from '../constants/Params'
 
 const initialState = {
-    params: {},
+    parameters: {},
     fetching: false
 }
 
@@ -15,7 +15,7 @@ export default function params(state = initialState, action) {
             return { ...state, fetching: true }
 
         case GET_PARAMS_SUCCESS:
-            return { ...state, params: action.payload, fetching: false }
+            return { ...state, parameters: action.payload, fetching: false }
 
         default:
             return state;

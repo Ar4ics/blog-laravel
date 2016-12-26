@@ -16,6 +16,5 @@
     "tests"
   ],
   "devDependencies": {
-    "foundation-sites": "^6.3.0"
   }
 }

@@ -14,8 +14,7 @@ class App extends Component {
     render() {
 
 
-        const {params, fetching} = this.props;
-
+        const {fetching, parameters } = this.props.params;
         return(
             <div>
                 <div className="column row">
@@ -29,18 +28,18 @@ class App extends Component {
 
                                 <li>
                                     <Link to="/posts">
-                                        Посты <span className="badge secondary">{ !fetching ? params.count_posts : "" }</span>
+                                        Посты <span className="badge secondary">{ !fetching ? parameters.count_posts : "" }</span>
                                     </Link>
 
                                 </li>
                                 <li>
                                     <Link to="/tags">
-                                        Теги <span className="badge secondary">{ !fetching ? params.count_tags : "" }</span>
+                                        Теги <span className="badge secondary">{ !fetching ? parameters.count_tags : "" }</span>
                                     </Link>
 
                                 </li>
                                 <li><a href="#">
-                                    Комменты <span className="badge secondary">{ !fetching ? params.count_comments : "" }</span>
+                                    Комменты <span className="badge secondary">{ !fetching ? parameters.count_comments : "" }</span>
                                 </a>
                                 </li>
                             </ul>
@@ -68,7 +67,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        params: state.params.params
+        params: state.params
     }
 }
 

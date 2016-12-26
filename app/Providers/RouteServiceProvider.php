@@ -38,16 +38,13 @@ class RouteServiceProvider extends ServiceProvider
 //        });
 
         Route::bind('post', function($value) {
-            return App\Article::with(['comments.user', 'tags', 'comments'])->where('slug', $value)->first();
+            return App\Article::with(['user', 'comments.user', 'tags', 'comments'])->where('slug', $value)->first();
         });
 
         Route::bind('tag', function($value) {
-            return App\Tag::where('name', $value)->firstOrFail();
+            return App\Tag::where('name', $value)->first();
         });
 
-        Route::bind('user', function($value) {
-            return App\User::where('name', $value)->firstOrFail();
-        });
 
         parent::boot();
 

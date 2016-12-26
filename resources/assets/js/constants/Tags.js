@@ -1,0 +1,2 @@
+export const GET_TAGS_REQUEST = 'GET_TAGS_REQUEST'
+export const GET_TAGS_SUCCESS = 'GET_TAGS_SUCCESS'

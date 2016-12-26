@@ -23,10 +23,19 @@ Route::post('comment/{id}', 'PostController@storeComment');
 Route::get('tags', 'TagController@index');
 Route::get('tags/{tag}', 'TagController@show');
 Route::get('users/{user}', 'UserController@show');
+Route::get('users/{user}/posts', 'UserController@showPosts');
 Route::get('users', 'UserController@index');
-Route::post('users/avatar/{id}', 'UserController@storeAvatar');
-Route::post('users/info/{id}', 'UserController@storeInfo');
-Route::get('/params', function () {
+
+
+Route::get('profile', 'UserController@profile');
+
+Route::post('users/{id}', 'UserController@store');
+
+Route::post('login', 'AuthController@login');
+
+Route::post('register', 'AuthController@register');
+
+Route::get('params', function () {
     return [
         'count_posts' => App\Article::get()->count(),
         'count_tags' => App\Tag::get()->count(),

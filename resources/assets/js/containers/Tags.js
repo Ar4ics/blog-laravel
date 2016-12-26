@@ -1,34 +1,21 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router';
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import * as tagsActions from '../actions/TagsAction'
+import React from 'react';
+import {Link} from 'react-router';
+class Tags extends React.Component {
 
-class Tags extends Component {
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.state = {
-    //         tags: []
-    //     };
-    //
-    //     const {posts} = props;
-    //     console.log('')
-    // }
+    componentDidMount() {
+        this.props.actionsTags.getTags();
+    }
 
-    //
-    // componentDidMount() {
-    //
-    //     fetch('/api/tags')
-    //         .then(response => {
-    //             return response.json();
-    //         })
-    //         .then(tags => {
-    //             this.setState({tags});
-    //         });
-    //
-    //
-    // }
 
-    renderTags() {
-        return this.state.tags.map(tag => {
+    renderTags(tags) {
+
+
+
+
+        return tags.map(tag => {
             return (
                 <p key={ tag.id }>
                     <Link to={"/tags/" +  tag.name }>
@@ -41,13 +28,30 @@ class Tags extends Component {
 
     render() {
 
+        const {fetching, tags} = this.props.tags;
         return (
             <div className="column row">
-                { this.renderTags() }
+                {
+                    !fetching && this.renderTags(tags)
+                }
             </div>
         );
     }
 
 }
 
-export default Tags
+
+function mapStateToProps(state) {
+    return {
+        tags: state.tags
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actionsTags: bindActionCreators(tagsActions, dispatch)
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tags)
+

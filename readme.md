@@ -6,6 +6,8 @@
 
 git clone https://github.com/Ar4ics/blog-laravel.git
 
+composer update
+
 php artisan serve
 
 ## Лицензия
